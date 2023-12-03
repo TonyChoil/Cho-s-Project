@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.teamtwo.nullfunding.member.dao.MemberMapper">
+
+
+    <resultMap id="fundRaiserDTO" type="FundRaiserDTO">
+        <id property="raiserCode" column="RAISER_CODE"/>
+        <result property="raiNickname" column="RAI_NICKNAME"/>
+        <result property="raiAddress" column="RAI_ADDRESS"/>
+        <result property="raiEmail" column="RAI_EMAIL"/>
+        <result property="raiPhone" column="RAI_PHONE"/>
+    </resultMap>
+
+    <insert id="insertFundRaiser" parameterType="FundRaiserDTO">
+        INSERT
+        <selectKey keyColumn="RAISER_CODE" keyProperty="raiserCode" resultType="_int" order="BEFORE">
+            SELECT SEQ_MEM_CODE.CURRVAL FROM DUAL
+        </selectKey>
+          INTO FUNDRAISER
+             (
+               RAISER_CODE
+             , RAI_NICKNAME
+             , RAI_ADDRESS
+             , RAI_EMAIL
+             , RAI_PHONE
+             )
+        VALUES
+             (
+                #{ raiserCode }
+             ,  NULL
+             ,  NULL
+             ,  #{ raiEmail }
+             ,  #{ raiPhone }
+             )
+    </insert>
+
+</mapper>
